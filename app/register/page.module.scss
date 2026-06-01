@@ -1,0 +1,97 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+
+.container {
+  min-height: calc(100vh - 200px);
+  @include flex-center;
+  padding: $spacing-8 $spacing-4;
+}
+
+.card {
+  background: $white;
+  border-radius: $radius-xl;
+  padding: $spacing-8;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: $shadow-lg;
+  
+  @include mobile {
+    padding: $spacing-6;
+  }
+}
+
+.title {
+  font-size: $font-size-2xl;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: $spacing-2;
+}
+
+.subtitle {
+  text-align: center;
+  color: $gray-500;
+  margin-bottom: $spacing-6;
+}
+
+.form {
+  @include flex-column;
+  gap: $spacing-5;
+}
+
+.field {
+  @include flex-column;
+  gap: $spacing-2;
+}
+
+.label {
+  font-weight: 500;
+  color: $gray-700;
+}
+
+.input {
+  padding: $spacing-3;
+  border: 1px solid $gray-300;
+  border-radius: $radius-lg;
+  font-size: $font-size-base;
+  
+  &:focus {
+    outline: none;
+    border-color: $primary;
+    box-shadow: 0 0 0 3px rgba($primary, 0.1);
+  }
+}
+
+.inputError {
+  border-color: $danger;
+}
+
+.error {
+  color: $danger;
+  font-size: $font-size-sm;
+}
+
+.button {
+  @include button-primary;
+  width: 100%;
+  padding: $spacing-3;
+  font-size: $font-size-base;
+  margin-top: $spacing-2;
+}
+
+.footer {
+  text-align: center;
+  margin-top: $spacing-6;
+  padding-top: $spacing-4;
+  border-top: 1px solid $gray-200;
+  color: $gray-600;
+}
+
+.link {
+  color: $primary;
+  font-weight: 500;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+}

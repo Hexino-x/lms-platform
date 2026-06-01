@@ -1,0 +1,62 @@
+@use './variables' as *;
+@use './mixins' as *;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: $font-sans;
+  color: $gray-800;
+  background: $gray-100;
+  line-height: 1.5;
+}
+
+a {
+  color: $primary;
+  text-decoration: none;
+  
+  &:hover {
+    color: $primary-dark;
+  }
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 $spacing-4;
+  
+  @include mobile {
+    padding: 0 $spacing-3;
+  }
+}
+
+// utility classes
+.text-center { text-align: center; }
+.text-primary { color: $primary; }
+.text-success { color: $success; }
+.text-danger { color: $danger; }
+.text-muted { color: $gray-500; }
+
+.mt-1 { margin-top: $spacing-1; }
+.mt-2 { margin-top: $spacing-2; }
+.mt-3 { margin-top: $spacing-3; }
+.mt-4 { margin-top: $spacing-4; }
+.mt-5 { margin-top: $spacing-5; }
+.mt-6 { margin-top: $spacing-6; }
+.mt-8 { margin-top: $spacing-8; }
+
+.mb-1 { margin-bottom: $spacing-1; }
+.mb-2 { margin-bottom: $spacing-2; }
+.mb-3 { margin-bottom: $spacing-3; }
+.mb-4 { margin-bottom: $spacing-4; }
+.mb-5 { margin-bottom: $spacing-5; }
+.mb-6 { margin-bottom: $spacing-6; }
+.mb-8 { margin-bottom: $spacing-8; }

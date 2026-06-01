@@ -1,0 +1,292 @@
+
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+// Breadcrumb
+.breadcrumb {
+  margin-bottom: $spacing-6;
+  font-size: $font-size-sm;
+  color: $gray-500;
+  
+  a, span {
+    margin: 0 $spacing-2;
+  }
+  
+  a:first-child {
+    margin-left: 0;
+  }
+  
+  span:last-child {
+    color: $gray-800;
+  }
+}
+
+// Header
+.header {
+  background: linear-gradient(135deg, $primary, $primary-dark);
+  border-radius: $radius-xl;
+  padding: $spacing-8;
+  margin-bottom: $spacing-8;
+  color: $white;
+  
+  @include mobile {
+    padding: $spacing-6;
+  }
+}
+
+.headerContent {
+  max-width: 800px;
+}
+
+.title {
+  font-size: $font-size-3xl;
+  font-weight: 700;
+  margin-bottom: $spacing-4;
+  
+  @include mobile {
+    font-size: $font-size-2xl;
+  }
+}
+
+.description {
+  font-size: $font-size-lg;
+  opacity: 0.9;
+  margin-bottom: $spacing-6;
+  line-height: 1.6;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-4;
+  margin-bottom: $spacing-6;
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  font-size: $font-size-sm;
+  opacity: 0.9;
+}
+
+.priceBox {
+  display: flex;
+  align-items: center;
+  gap: $spacing-4;
+  flex-wrap: wrap;
+}
+
+.price {
+  font-size: $font-size-2xl;
+  font-weight: 700;
+}
+
+.purchaseButton {
+  @include button-primary;
+  padding: $spacing-3 $spacing-8;
+  font-size: $font-size-base;
+}
+
+// Main content
+.content {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: $spacing-8;
+  
+  @include tablet {
+    grid-template-columns: 1fr;
+    gap: $spacing-6;
+  }
+  
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.main {
+  @include flex-column;
+  gap: $spacing-8;
+}
+
+.section {
+  background: $white;
+  border-radius: $radius-xl;
+  padding: $spacing-6;
+  box-shadow: $shadow-sm;
+  
+  @include mobile {
+    padding: $spacing-4;
+  }
+}
+
+.sectionTitle {
+  font-size: $font-size-xl;
+  font-weight: 600;
+  margin-bottom: $spacing-4;
+  padding-bottom: $spacing-3;
+  border-bottom: 2px solid $gray-200;
+}
+
+.sectionText {
+  line-height: 1.7;
+  color: $gray-600;
+}
+
+// Lessons
+.lessons {
+  @include flex-column;
+  gap: $spacing-3;
+}
+
+.lesson {
+  @include flex-between;
+  padding: $spacing-4;
+  background: $gray-100;
+  border-radius: $radius-lg;
+  transition: background 0.2s;
+  
+  &:hover {
+    background: $gray-200;
+  }
+  
+  @include mobile {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $spacing-2;
+  }
+}
+
+.lessonInfo {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+}
+
+.lessonNumber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: $primary;
+  color: $white;
+  border-radius: $radius-full;
+  font-size: $font-size-sm;
+  font-weight: 600;
+}
+
+.lessonTitle {
+  font-weight: 500;
+}
+
+.lessonMeta {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+}
+
+.lessonDuration {
+  font-size: $font-size-sm;
+  color: $gray-500;
+}
+
+.lessonFree {
+  font-size: $font-size-xs;
+  color: $success;
+  background: rgba($success, 0.1);
+  padding: $spacing-1 $spacing-2;
+  border-radius: $radius-sm;
+}
+
+// Requirements
+.requirements {
+  list-style: none;
+  padding: 0;
+  
+  li {
+    padding: $spacing-2 0;
+    padding-right: $spacing-6;
+    position: relative;
+    
+    &::before {
+      content: '✓';
+      position: absolute;
+      right: 0;
+      color: $success;
+      font-weight: 600;
+    }
+  }
+}
+
+// Sidebar
+.sidebar {
+  @include flex-column;
+  gap: $spacing-6;
+}
+
+.sidebarCard {
+  background: $white;
+  border-radius: $radius-xl;
+  padding: $spacing-6;
+  box-shadow: $shadow-sm;
+}
+
+.sidebarTitle {
+  font-size: $font-size-lg;
+  font-weight: 600;
+  margin-bottom: $spacing-4;
+  padding-bottom: $spacing-3;
+  border-bottom: 2px solid $gray-200;
+}
+
+.includesList {
+  list-style: none;
+  padding: 0;
+  
+  li {
+    padding: $spacing-2 0;
+    font-size: $font-size-sm;
+  }
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-2;
+}
+
+.tag {
+  display: inline-block;
+  padding: $spacing-1 $spacing-3;
+  background: $gray-100;
+  border-radius: $radius-full;
+  font-size: $font-size-xs;
+  color: $gray-600;
+  transition: all 0.2s;
+  
+  &:hover {
+    background: $primary;
+    color: $white;
+  }
+}
+
+.shareButtons {
+  display: flex;
+  gap: $spacing-3;
+}
+
+.shareButton {
+  width: 40px;
+  height: 40px;
+  @include flex-center;
+  background: $gray-100;
+  border-radius: $radius-full;
+  font-size: $font-size-lg;
+  cursor: pointer;
+  transition: all 0.2s;
+  
+  &:hover {
+    background: $primary;
+  }
+}
