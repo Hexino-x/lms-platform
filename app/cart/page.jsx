@@ -1,33 +1,51 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 export default function CartPage() {
   const [cart, setCart] = useState([]);
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
-    const saved = localStorage.getItem('cart');
-    if (saved) setCart(JSON.parse(saved));
+    loadCart();
   }, []);
 
-  const updateQuantity = (id, quantity) => {
+  const loadCart = () => {
+    const savedCart = JSON.parse(localStorage.getItem('cart') || '[]');
+    setCart(savedCart);
+    const newTotal = savedCart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+    setTotal(newTotal);
+  };
+
+  const updateQuantity = (id, newQuantity) => {
+    if (newQuantity < 1) return;
     const newCart = cart.map(item =>
-      item._id === id ? { ...item, quantity: Math.max(1, quantity) } : item
+      item._id === id ? { ...item, quantity: newQuantity } : item
     );
     setCart(newCart);
     localStorage.setItem('cart', JSON.stringify(newCart));
+    const newTotal = newCart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+    setTotal(newTotal);
   };
 
-  const removeFromCart = (id) => {
+  const removeItem = (id) => {
     const newCart = cart.filter(item => item._id !== id);
     setCart(newCart);
     localStorage.setItem('cart', JSON.stringify(newCart));
+    const newTotal = newCart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+    setTotal(newTotal);
   };
 
-  const totalPrice = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
-
   if (cart.length === 0) {
-    return <div className="text-center py-20">سبد خرید خالی است</div>;
+    return (
+      <div className="container mx-auto px-4 py-20 text-center">
+        <h1 className="text-2xl font-bold mb-4">سبد خرید خالی است</h1>
+        <Link href="/" className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600">
+          بازگشت به فروشگاه
+        </Link>
+      </div>
+    );
   }
 
   return (
@@ -48,15 +66,15 @@ export default function CartPage() {
                 onChange={(e) => updateQuantity(item._id, parseInt(e.target.value))}
                 className="w-16 p-1 border rounded text-center"
               />
-              <button onClick={() => removeFromCart(item._id)} className="text-red-500">
+              <button onClick={() => removeItem(item._id)} className="text-red-500">
                 حذف
               </button>
             </div>
           </div>
         ))}
         <div className="text-right border-t pt-4">
-          <p className="text-xl font-bold">مجموع: {totalPrice.toLocaleString()} تومان</p>
-          <button className="mt-4 bg-blue-500 text-white px-6 py-2 rounded">
+          <p className="text-xl font-bold">مجموع: {total.toLocaleString()} تومان</p>
+          <button className="mt-4 bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600">
             پرداخت
           </button>
         </div>

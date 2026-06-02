@@ -1,7 +1,5 @@
 'use client';
 
-
-
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
@@ -11,21 +9,7 @@ export default function CourseDetail() {
   const router = useRouter();
   const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  const addToCart = (product) => {
-    const savedCart = localStorage.getItem('cart');
-    const cart = savedCart ? JSON.parse(savedCart) : [];
-    const existing = cart.find(item => item._id === product._id);
-    
-    if (existing) {
-      existing.quantity = (existing.quantity || 1) + 1;
-    } else {
-      cart.push({ ...product, quantity: 1 });
-    }
-    
-    localStorage.setItem('cart', JSON.stringify(cart));
-    alert('به سبد خرید اضافه شد');
-  };
+  const [isInCart, setIsInCart] = useState(false);
 
   useEffect(() => {
     if (!id) return;
@@ -34,8 +18,23 @@ export default function CourseDetail() {
       .then(data => {
         setCourse(data);
         setLoading(false);
+        // چک کن آیا این دوره در سبد هست یا نه
+        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        setIsInCart(cart.some(item => item._id === data._id));
       });
   }, [id]);
+
+  const addToCart = () => {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    if (!cart.some(item => item._id === course._id)) {
+      cart.push({ ...course, quantity: 1 });
+      localStorage.setItem('cart', JSON.stringify(cart));
+      setIsInCart(true);
+      alert('به سبد خرید اضافه شد');
+    } else {
+      alert('این دوره قبلاً به سبد اضافه شده است');
+    }
+  };
 
   const handleDelete = async () => {
     if (!confirm('آیا از حذف این دوره مطمئنی؟')) return;
@@ -53,10 +52,11 @@ export default function CourseDetail() {
         ویرایش
       </Link>
       <button 
-        onClick={() => addToCart(course)} 
-        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 mr-2"
+        onClick={addToCart}
+        disabled={isInCart}
+        className={`px-4 py-2 rounded mr-2 ${isInCart ? 'bg-gray-400 cursor-not-allowed' : 'bg-green-500 hover:bg-green-600'} text-white`}
       >
-        افزودن به سبد
+        {isInCart ? 'در سبد خرید' : 'افزودن به سبد'}
       </button>
       <button onClick={handleDelete} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
         حذف
